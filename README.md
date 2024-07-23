@@ -1,6 +1,6 @@
-# Kafka Spark Data Encryption and Decryption
+# Kafka Spark Data Streaming
 
-This project demonstrates how to produce and consume data with encryption and decryption using Apache Kafka and Apache Spark.
+This project demonstrates how to produce and consume data using Apache Kafka and Apache Spark.
 
 ## Introduction
 
@@ -10,15 +10,6 @@ The project consists of several components:
 
 - **Consumer (`consumer.ipynb`)**: This notebook demonstrates reading data produced by the producer.
 
-
-
-## Requirements
-
-- Apache Kafka
-- Apache Spark
-- Python 3.x
-- PySpark
-- Kafka-python
 
 ## Usage
 
