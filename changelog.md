@@ -1,5 +1,5 @@
 ### v1.1.1 (Latest)
-- Added scripts of encryption, decryption.
+- Added scripts for encryption, decryption.
 
 <hr>
 
