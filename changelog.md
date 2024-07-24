@@ -1,5 +1,5 @@
 ### v1.2.0 (Latest)
--Separated fields for adding credentials of producer database and consumer database.
+- Separated fields for adding credentials of producer database and consumer database.
 
 <hr>
 
