@@ -4,7 +4,7 @@ import pandas as pd
 import os
 from dotenv import load_dotenv
 
-load_dotenv('../.env')
+load_dotenv('../config/.env')
 
 DB_USERNAME = os.getenv('DB_USERNAME')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
@@ -25,7 +25,7 @@ def table_df(database_name, table_name):
 
     query = f'SELECT * FROM {table_name}'
     # df = pd.read_sql(sql=query, con=con)
-    df = pd.read_sql(sql=query, con=con.connection)
+    df = pd.read_sql(sql=query, con=con)
     con.close()
     return df
 
@@ -41,7 +41,6 @@ def df_table(dataframe, database_name, table_name):
 
     engine = create_engine(conn_url)
     con = engine.connect()
-    dataframe.to_sql(table_name, con=con.connection, if_exists='replace', index=False)
+    dataframe.to_sql(table_name, con=con, if_exists='append', index=False)
+    # dataframe.to_sql(table_name, con=engine, if_exists='replace', index=False)
     con.close()
-
-

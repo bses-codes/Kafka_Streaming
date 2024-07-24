@@ -1,7 +1,5 @@
 kafka_python==2.0.2
 kafka_python_ng==2.2.2
-numpy==2.0.1
-pandas==2.2.2
 pyspark==3.5.1
 python-dotenv==1.0.1
 SQLAlchemy==1.4.52
