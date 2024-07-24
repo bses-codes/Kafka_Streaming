@@ -6,20 +6,40 @@ from dotenv import load_dotenv
 
 load_dotenv('../config/.env')
 
-DB_USERNAME = os.getenv('DB_USERNAME')
-DB_PASSWORD = os.getenv('DB_PASSWORD')
-DB_HOST = os.getenv('DB_HOST')
+PDB_USERNAME = os.getenv('PRO_DB_USERNAME')
+PDB_PASSWORD = os.getenv('PRO_DB_PASSWORD')
+PDB_HOST = os.getenv('PRO_HOST')
+PDB_PORT = os.getenv('PRO_PORT')
 
+CDB_USERNAME = os.getenv('DEST_DB_USERNAME')
+CDB_PASSWORD = os.getenv('DEST_DB_PASSWORD')
+CDB_HOST = os.getenv('DEST_HOST')
+CDB_PORT = os.getenv('DEST_PORT')
 
-def table_df(database_name, table_name):
+def prod_connection(database_name):
     conn_url = URL.create(
         "mysql+mysqlconnector",
-        username=DB_USERNAME,
-        password=DB_PASSWORD,
-        host=DB_HOST,
+        username=PDB_USERNAME,
+        password=PDB_PASSWORD,
+        host=PDB_HOST,
+        port=PDB_PORT,
         database=database_name
     )
+    return conn_url
 
+def dest_connection(database_name):
+    conn_url = URL.create(
+        "mysql+mysqlconnector",
+        username=CDB_USERNAME,
+        password=CDB_PASSWORD,
+        host=CDB_HOST,
+        port=CDB_PORT,
+        database=database_name
+    )
+    return conn_url
+
+def table_df(database_name,table_name):
+    conn_url = prod_connection(database_name)
     engine = create_engine(conn_url)
     con = engine.connect()
 
@@ -31,14 +51,7 @@ def table_df(database_name, table_name):
 
 
 def df_table(dataframe, database_name, table_name):
-    conn_url = URL.create(
-        "mysql+mysqlconnector",
-        username=DB_USERNAME,
-        password=DB_PASSWORD,
-        host=DB_HOST,
-        database=database_name
-    )
-
+    conn_url = dest_connection(database_name)
     engine = create_engine(conn_url)
     con = engine.connect()
     dataframe.to_sql(table_name, con=con, if_exists='append', index=False)
